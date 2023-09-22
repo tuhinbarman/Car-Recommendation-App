@@ -1,0 +1,214 @@
+{%load static%}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- <link href="{%static 'css/home.css'%}" rel="stylesheet" > -->
+    
+    <title>Car Recommendation App</title>
+    <link rel="icon" href="{% static 'images/icons8-car-94.png'%}" type="image/png">
+    <style>
+        .layout{
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+        .layout-1{
+            display: flex;
+            flex-direction: row;
+        }
+        .layout-2{
+            display: flex;
+            flex-direction : row;
+        }
+        
+    </style>
+   
+    
+</head  >
+<body class="bg bg-dark text-white" >
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-3">
+            <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="{%static 'images/Tata-Motors-logo-HD.png'%}" alt="Tata Motors"  style="height:40px">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class=" collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav ms-auto ">
+                <li class="nav-item">
+                    <a class="nav-link mx-2 active text-primary" aria-current="page" href="{%url 'index' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link mx-2 text-primary" href="#">Products</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link mx-2 text-primary" href="#">Pricing</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link mx-2 dropdown-toggle  text-primary" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Company
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <li><a class="dropdown-item" href="#">Blog</a></li>
+                    <li><a class="dropdown-item" href="#">About Us</a></li>
+                    <li><a class="dropdown-item" href="#">Contact us</a></li>
+                    </ul>
+                </li>
+                </ul>
+            </div>
+            </div>
+        </nav>
+
+        
+            <div class="container  text-center mt-5 border border-primary rounded-4 shadow-sm"  style="width : 600px ; height : 100%">
+                <form action="{%url 'results'%}"  method="POST">
+                    {%csrf_token%}
+                    <h3 class="form-heading px-3 mt-2">Car Recommendation App</h3>
+                    <div class="layout">
+                        <div class="form-group  m-3  text-start">
+                            <label for="type_of_engine">Select the type of Engine</label>
+                            <select class="form-select mb-3" aria-label=".form-select-lg example" name="engine"  value="">
+                              <option value="1199cc">1199cc</option>
+                              <option value="1500cc">1500cc</option>
+                              <option value="1956cc">1956cc</option>
+                            </select>
+                          </div>
+                          <div class="form-group  m-3  text-start">
+                              <label for="fuel_type">Select the fuel type</label>
+                              <select class="form-select mb-3" aria-label=".form-select-lg example" name="fuel_type"  value="" >
+                                  <option value="Petrol">Petrol</option>
+                                  <option value="Diesel">Diesel</option>
+                                  <option value="Electric">Electric</option>
+                                  <option value="Hybrid">Hybrid</option>
+                              </select>  
+                          </div>
+                    
+                    
+                        <div class="form-group  m-3  text-start">
+                            <label for="no_of_seats">Select no of seats</label>
+                                <select class="form-select  mb-3" aria-label=".form-select-lg example" name="seats"  value="">
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                </select>
+                        </div>
+                        <div class="form-group  m-3  text-start">
+                            <label for="no_of_seats">Select price range</label>
+                                <select class="form-select mb-3" aria-label=".form-select-lg example" name="price"  value="">
+                                    <option value="under 5,00,000">under 5,00,000</option>
+                                    <option value="5,00,000 - 10,00,000">5,00,000 - 10,00,000</option>
+                                    <option value="10,00,000 - 20,00,000">10,00,000 - 15,00,000</option>
+                                    <option value="15,00,000 - 20,00,000">15,00,000 - 20,00,000</option>
+                                    <option value="above 20,00,000">above 20,00,000</option>
+                                </select>
+                        </div>
+                    </div>
+                        
+                    
+                    
+                        <div class="mb-3 ms-3 text-start">
+                            <label for="exampleFormControlTextarea1" class="form-label">Select the features you want : </label>
+                                <div class="layout">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="features" value="Power Windows" id="powerWindows">
+                                        <label class="form-check-label" for="powerWindows">
+                                            Power Windows
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="features" value="Fog Lights" id="fogLights">
+                                        <label class="form-check-label" for="fogLights">
+                                            Fog Lights
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="features" value="Power Steering" id="powerSteering">
+                                        <label class="form-check-label" for="powerSteering">
+                                            Power Steering
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="features" value="ventilated seats" id="ventilated-seats">
+                                        <label class="form-check-label" for="ventilated-seats">
+                                            Ventilated Seats
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="features" value="anti lock braking system" id="anti-lock-braking-system">
+                                        <label class="form-check-label" for="anti-lock-braking-system">
+                                            Anti Lock Braking System
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="features" value="automatic climate control" id="automatic-climate-control">
+                                        <label class="form-check-label" for="automatic-climate-control">
+                                            Automatic Climate Control
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="features" value="rear airbag" id="rear-airbag">
+                                        <label class="form-check-label" for="rear-airbag">
+                                            Rear Airbag
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="features" value="alloy wheels" id="alloywheels">
+                                        <label class="form-check-label" for="alloywheels">
+                                            Alloy Wheels
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="features" value="sunroof" id="sunroof">
+                                        <label class="form-check-label" for="sunroof">
+                                            Sunroof
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="features" value="good off roading" id="good-off-roading">
+                                        <label class="form-check-label" for="good-off-roading">
+                                            Good off roading
+                                        </label>
+                                    </div>
+                                </div>
+                            
+                        </div>
+                        <div class="mb-3 ms-3 text-start">
+                            <label for="exampleFormControlTextarea1" class="form-label">Select Company : </label>
+                                <div class="layout">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="company" id="Tata" value="Tata">
+                                        <label class="form-check-label" for="Tata">
+                                          Tata
+                                        </label>
+                                      </div>
+                                      <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="company" id="Non-Tata" value="Non Tata">
+                                        <label class="form-check-label" for="Non-Tata">
+                                          Non Tata
+                                        </label>
+                                      </div>
+                                </div> 
+                        </div>
+                    
+                    <!-- <div class="mb-3  text-start">
+                        <label for="exampleFormControlTextarea1" class="form-label">Enter additional features : </label>
+                        <textarea class="form-control my-3" id="exampleFormControlTextarea1" rows="3"  placeholder="features.."  name="added_features" value=""></textarea>
+                    </div> -->
+                    
+                    <div class="d-grid">
+                        <button class="btn btn-primary mb-3"  type="submit">Submit</button>
+                    </div>
+                  </form>
+            </div>
+        
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    
+</body>
+</html>
